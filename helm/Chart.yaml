@@ -1,0 +1,4 @@
+apiVersion: v2
+description: A quickstart for LlamaStack distribution on OpenShift featuring an MCPServer for Eligibility
+name: eligibility-mcp-quickstart
+version: 1.0.0
