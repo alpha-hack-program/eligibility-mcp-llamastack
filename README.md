@@ -95,7 +95,11 @@ git clone https://github.com/alpha-hack-program/eligibility-mcp-llamastack.git &
     cd eligibility-mcp-llamastack/
 ```
 
+### Log in OpenShift
 
+```bash
+oc login ...
+```
 
 ### Create the project
 
@@ -202,11 +206,21 @@ The table includes input parameters (family relationship, situation, single-pare
 - I'm a single mom and I just had a baby, may I get access to the unpaid leave aid?
 
 ## Uninstall
+
+Unistall the helm chart.
+
 ```bash
 helm uninstall eligibility-mcp-llamastack --namespace ${PROJECT}
 ```
 
-To also remove the project:
+Delete all remaining objects like jobs created in hooks.
+
+```bash
+oc delete all -l "app.kubernetes.io/part-of=eligibility-mcp-llamastack"
+```
+
+Finally remove the project:
+
 ```bash
 oc delete project ${PROJECT}
 ```

@@ -82,7 +82,7 @@ models:
       # productName: T4-SHARED
     env:
       - name: VLLM_SKIP_WARMUP
-          value: "true" "
+        value: "true"
     args:
       - --enable-auto-tool-choice
       - --tool-call-parser

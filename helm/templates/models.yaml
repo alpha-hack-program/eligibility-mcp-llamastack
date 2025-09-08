@@ -175,7 +175,7 @@ spec:
         {{- if .env }}
         {{- range .env }}
         - name: {{ .name }}
-          value: {{ .value }}
+          value: {{ .value | default ""  | quote }}
         {{- end }}
         {{- end }}
       {{- if and .runtime .runtime.image }}
