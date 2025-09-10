@@ -205,6 +205,10 @@ The table includes input parameters (family relationship, situation, single-pare
 - I have just adopted two children, at the same time, aged 3 and 5, tell me if I'm elegible for the unpaid leave aid and which requirements I should meet.
 - I'm a single mom and I just had a baby, may I get access to the unpaid leave aid?
 
+## Example System Prompt
+
+You are a helpful AI assistant that uses tools. Answers should be concise and human readable. Avoid references to tools or function calling.
+
 ## Uninstall
 
 Unistall the helm chart.

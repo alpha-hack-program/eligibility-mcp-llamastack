@@ -65,7 +65,8 @@ models:
     runtime:
       templateName: vllm-serving-template
       templateDisplayName: vLLM Serving Template
-      image: quay.io/modh/vllm:rhoai-2.23-cuda
+      # image: quay.io/modh/vllm:rhoai-2.23-cuda
+      image:  quay.io/modh/vllm:rhoai-2.22-gaudi
       resources:
         limits:
           cpu: '8'
@@ -74,11 +75,11 @@ models:
           cpu: '6'
           memory: 24Gi
     accelerator:
-      type: nvidia.com/gpu
-      # type: habana.ai/gaudi
+      # type: nvidia.com/gpu
+      type: habana.ai/gaudi
       max: '1'
       min: '1'
-      productName: NVIDIA-A10G-SHARED
+      # productName: NVIDIA-A10G-SHARED
       # productName: T4-SHARED
     env:
       - name: VLLM_SKIP_WARMUP

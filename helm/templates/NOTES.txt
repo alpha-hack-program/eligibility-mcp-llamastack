@@ -6,7 +6,9 @@ Models deployed:
 {{- range .Values.models }}
 - {{ .name }}:
   URL: "{{ "http://" }}{{ .name }}-predictor:8080/v1"
-  MODEL: {{ include "rag-lsd.envVarName" .name }}_MODEL: "{{ .name }}"
+  MODEL: "{{ .name }}"
+  IMAGE: "{{ .image }}"
+  RUNTIME: "{{ .runtime.image }}"
 {{- if .api_key }}
   API_KEY:: "{{ .api_key }}"
 {{- end }}
