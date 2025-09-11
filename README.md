@@ -204,10 +204,11 @@ The table includes input parameters (family relationship, situation, single-pare
 - I have just adopted two children, at the same time, aged 3 and 5, am I elegible for the unpaid leave aid? How much?
 - I have just adopted two children, at the same time, aged 3 and 5, tell me if I'm elegible for the unpaid leave aid and which requirements I should meet.
 - I'm a single mom and I just had a baby, may I get access to the unpaid leave aid?
+- Enumerate the legal requirements to get the aid for unpaid leave.
 
 ## Example System Prompt
 
-You are a helpful AI assistant that uses tools. Answers should be concise and human readable. Avoid references to tools or function calling.
+You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. Avoid references to tools or function calling. Don't make up parameters for a function call, instead use default values or request the needed information from the user. Call the RAG tool first if unsure.
 
 ## Uninstall
 
