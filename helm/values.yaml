@@ -65,8 +65,7 @@ models:
     runtime:
       templateName: vllm-serving-template
       templateDisplayName: vLLM Serving Template
-      # image: quay.io/modh/vllm:rhoai-2.23-cuda
-      image:  quay.io/modh/vllm:rhoai-2.22-gaudi
+      image: quay.io/modh/vllm:rhoai-2.23-cuda
       resources:
         limits:
           cpu: '8'
@@ -75,8 +74,7 @@ models:
           cpu: '6'
           memory: 24Gi
     accelerator:
-      # type: nvidia.com/gpu
-      type: habana.ai/gaudi
+      type: nvidia.com/gpu
       max: '1'
       min: '1'
       # productName: NVIDIA-A10G-SHARED
