@@ -119,8 +119,14 @@ oc label namespace ${PROJECT} modelmesh-enabled=false opendatahub.io/dashboard=t
 
 ### Install with Helm
 
-```
+```bash
 helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --timeout 10m
+```
+
+If you have access to Intel Gaudi accelerators you could use this command which uses `helm/intel.values` instead:
+
+```bash
+helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --values helm/intel.yaml --timeout 10m
 ```
 
 ### Wait for pods
