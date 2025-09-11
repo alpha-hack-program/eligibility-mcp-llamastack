@@ -120,7 +120,7 @@ oc label namespace ${PROJECT} modelmesh-enabled=false opendatahub.io/dashboard=t
 ### Install with Helm
 
 ```
-helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} 
+helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --timeout 10m
 ```
 
 ### Wait for pods
@@ -208,7 +208,7 @@ The table includes input parameters (family relationship, situation, single-pare
 
 ## Example System Prompt
 
-You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. Avoid references to tools or function calling. Don't make up parameters for a function call, instead use default values or request the needed information from the user. Call the RAG tool first if unsure.
+You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. Avoid references to tools or function calling. Infer parameters for function calls or instead use default values or request the needed information from the user. Call the RAG tool first if unsure.
 
 ## Uninstall
 
