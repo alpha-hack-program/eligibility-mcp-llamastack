@@ -205,8 +205,8 @@ The table includes input parameters (family relationship, situation, single-pare
 
 ## Example queries
 
-- My mother had an accident and she's at the hospital, I have to take care of her, can I get access to the unpaid leave aid?
-- My mother had an accident and she's at the hospital, I have to take care of her, tell me if I can get access to the unpaid leave aid and the requirements I have to meet.
+- My mother had an accident and she's at the hospital. I have to take care of her, can I get access to the unpaid leave aid?
+- My mother had an accident and she's at the hospital. I have to take care of her, tell me if I can get access to the unpaid leave aid and the requirements I have to meet.
 - I have just adopted two children, at the same time, aged 3 and 5, am I elegible for the unpaid leave aid? How much?
 - I have just adopted two children, at the same time, aged 3 and 5, tell me if I'm elegible for the unpaid leave aid and which requirements I should meet.
 - I'm a single mom and I just had a baby, may I get access to the unpaid leave aid?
@@ -227,7 +227,7 @@ helm uninstall eligibility-mcp-llamastack --namespace ${PROJECT}
 Delete all remaining objects like jobs created in hooks.
 
 ```bash
-oc delete all -l "app.kubernetes.io/part-of=eligibility-mcp-llamastack"
+oc delete jobs -l "app.kubernetes.io/part-of=eligibility-mcp-llamastack"
 ```
 
 Finally remove the project:

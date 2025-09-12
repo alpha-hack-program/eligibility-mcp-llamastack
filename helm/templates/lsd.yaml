@@ -11,6 +11,8 @@ metadata:
     app.kubernetes.io/name: {{ .Values.app }}
     app.kubernetes.io/part-of: {{ .Values.partOf }}
     app.openshift.io/runtime: python
+    # app.openshift.io/connects-to: >-
+    #   [{"apiVersion":"apps/v1","kind":"Deployment","name":"granite-3-3-8b-predictor"},{"apiVersion":"apps/v1","kind":"Deployment","name":"llama-3-1-8b-w4a16-predictor"},{"apiVersion":"apps/v1","kind":"Deployment","name":"eligibility-engine"}]
 spec:
   replicas: 1
   server:

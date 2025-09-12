@@ -5,18 +5,18 @@ You can access it from project **{{ .Release.Namespace }}**
 Models deployed:
 {{- range .Values.models }}
 - {{ .name }}:
-  URL: "{{ "http://" }}{{ .name }}-predictor:8080/v1"
-  MODEL: "{{ .name }}"
-  IMAGE: "{{ .image }}"
-  RUNTIME: "{{ .runtime.image }}"
+  - URL: "{{ "http://" }}{{ .name }}-predictor:8080/v1"
+  - MODEL: "{{ .name }}"
+  - IMAGE: "{{ .image }}"
+  - RUNTIME: "{{ .runtime.image }}"
 {{- if .api_key }}
-  API_KEY:: "{{ .api_key }}"
+  - API_KEY:: "{{ .api_key }}"
 {{- end }}
 {{- if .tlsVerify }}
-  TLS_VERIFY: "{{ .tlsVerify }}"
+  - TLS_VERIFY: "{{ .tlsVerify }}"
 {{- end }}
 {{- if .maxTokens }}
-  MAX_TOKENS: "{{ .maxTokens }}"
+  - MAX_TOKENS: "{{ .maxTokens }}"
 {{- end }}
 {{- end }}
 
