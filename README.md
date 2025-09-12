@@ -119,6 +119,8 @@ oc label namespace ${PROJECT} modelmesh-enabled=false opendatahub.io/dashboard=t
 
 ### Install with Helm
 
+This default delployment deploys one model... TODO.
+
 ```bash
 helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --timeout 10m
 ```
@@ -127,6 +129,12 @@ If you have access to Intel Gaudi accelerators you could use this command which 
 
 ```bash
 helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --values helm/intel.yaml --timeout 10m
+```
+
+If you want an NVIDIA deployment with two models run this. TODO explain which models... bla.
+
+```bash
+helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --values helm/nvidia.yaml --timeout 10m
 ```
 
 ### Wait for pods
