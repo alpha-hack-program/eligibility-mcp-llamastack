@@ -122,19 +122,22 @@ oc label namespace ${PROJECT} modelmesh-enabled=false opendatahub.io/dashboard=t
 This default delployment deploys one model... TODO.
 
 ```bash
-helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --timeout 10m
+helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} \
+  --set namespace=${PROJECT} --timeout 10m
 ```
 
 If you have access to Intel Gaudi accelerators you could use this command which uses `helm/intel.values` instead:
 
 ```bash
-helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --values helm/intel.yaml --timeout 10m
+helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} \
+  --values helm/intel.yaml --set namespace=${PROJECT} --timeout 10m
 ```
 
 If you want an NVIDIA deployment with two models run this. TODO explain which models... bla.
 
 ```bash
-helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} --values helm/nvidia.yaml --timeout 10m
+helm install eligibility-mcp-llamastack helm/ --namespace ${PROJECT} \
+  --values helm/nvidia.yaml --set namespace=${PROJECT} --timeout 10m
 ```
 
 ### Wait for pods
@@ -222,7 +225,7 @@ The table includes input parameters (family relationship, situation, single-pare
 
 ## Example System Prompt
 
-You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. Avoid references to tools or function calling. Infer parameters for function calls or instead use default values or request the needed information from the user. Call the RAG tool first if unsure.
+You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. Avoid references to tools or function calling. Infer parameters for function calls or instead use default values or request the needed information from the user. Call the RAG tool first if unsure. Parameter single_parent_family only is necessary if birth/adoption/foster_care otherwise use false.
 
 ## Uninstall
 

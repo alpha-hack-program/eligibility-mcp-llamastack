@@ -5,19 +5,19 @@ You can access it from project **{{ .Release.Namespace }}**
 Models deployed:
 {{- range .Values.models }}
 - {{ .name }}:
-  - URL: "{{ "http://" }}{{ .name }}-predictor:8080/v1"
-  - MODEL: "{{ .name }}"
-  - IMAGE: "{{ .image }}"
-  - RUNTIME: "{{ .runtime.image }}"
-{{- if .api_key }}
-  - API_KEY:: "{{ .api_key }}"
-{{- end }}
-{{- if .tlsVerify }}
-  - TLS_VERIFY: "{{ .tlsVerify }}"
-{{- end }}
-{{- if .maxTokens }}
-  - MAX_TOKENS: "{{ .maxTokens }}"
-{{- end }}
+    - URL: "{{ "http://" }}{{ .name }}-predictor:8080/v1"
+    - MODEL: "{{ .name }}"
+    - IMAGE: "{{ .image }}"
+    - RUNTIME: "{{ .runtime.image }}"
+  {{- if .api_key }}
+    - API_KEY:: "{{ .api_key }}"
+  {{- end }}
+  {{- if .tlsVerify }}
+    - TLS_VERIFY: "{{ .tlsVerify }}"
+  {{- end }}
+  {{- if .maxTokens }}
+    - MAX_TOKENS: "{{ .maxTokens }}"
+  {{- end }}
 {{- end }}
 
 MCP Servers deployed:
@@ -26,5 +26,12 @@ MCP Servers deployed:
     - Git: {{ .vcs.uri }} / {{ .vcs.ref }}
     - Runtime: {{ .runtime }}
     - URI: uri: {{ .protocol }}://{{ .host }}:{{ .port }}{{ .uri }}
+    {{- if .env }}
+    - Environment variables:
+          {{- range .env }}
+          - {{ .name }}: {{ .value }}
+          {{- end }}
+    {{- end }}
+
 {{- end }}
 

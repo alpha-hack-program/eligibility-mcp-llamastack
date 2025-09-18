@@ -1,3 +1,5 @@
+{{- $appName := .Values.app }}
+
 {{- range .Values.models }}
 ---
 apiVersion: serving.kserve.io/v1beta1
@@ -13,6 +15,7 @@ metadata:
     serving.knative.openshift.io/enablePassthrough: 'true'
     sidecar.istio.io/inject: 'true'
     sidecar.istio.io/rewriteAppHTTPProbers: 'true'
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ $appName }}"}]'
     {{- end }}
   name: {{ .name }}
   namespace: {{ $.Values.namespace }}
@@ -120,6 +123,7 @@ metadata:
     {{- if and .accelerator .accelerator.type }}
     opendatahub.io/recommended-accelerators: '["{{ .accelerator.type }}"]'
     {{- end }}
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ $appName }}"}]'
   name: {{ .name }}
   namespace: {{ $.Values.namespace }}
   labels:

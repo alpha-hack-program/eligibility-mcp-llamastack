@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   name: "{{ .Values.app }}-playground"
   namespace: {{ .Values.namespace }}
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Values.app }}"}]'
   labels:
     app: "{{ .Values.app }}-playground"
     app.kubernetes.io/component: "{{ .Values.app }}-playground"
