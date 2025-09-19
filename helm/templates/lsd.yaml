@@ -89,9 +89,16 @@ spec:
           subPath: run.yaml
           readOnly: true
     distribution:
+      {{- if .Values.lsdName }}
+      name: '{{ .Values.lsdName | default "rh-dev"}}'
+      {{- else }}
       image: '{{ .Values.lsdImage }}'
+      {{- end }}
     storage:
       size: 5Gi
+      {{- if .Values.lsdMountPath }}
+      mountPath: {{ .Values.lsdMountPath }}
+      {{- end }}
 ---
 apiVersion: route.openshift.io/v1
 kind: Route

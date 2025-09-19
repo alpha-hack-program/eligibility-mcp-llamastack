@@ -5,14 +5,17 @@ app: eligibility-lsd
 namespace: eligibility-mcp-llamastack
 partOf: eligibility-mcp-llamastack
 
+# lsdName: rh-dev
 lsdImage: quay.io/opendatahub/llama-stack:odh
-lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
 lsdPort: 8321
+lsdBaseDir: /opt/app-root/src
 
 lsdEmbeddingModel: granite-embedding-125m
 lsdEmbeddingDimension: 768
 lsdEmbeddingModelProvider: sentence-transformers
 lsdChunkSizeInTokens: 256
+
+lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
 
 loaderImage: quay.io/atarazana/rag-loader:0.1.1
 loaderDelay: 10

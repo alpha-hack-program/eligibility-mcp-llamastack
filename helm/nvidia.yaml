@@ -5,14 +5,18 @@ app: eligibility-lsd
 namespace: eligibility-mcp-llamastack
 partOf: eligibility-mcp-llamastack
 
-lsdImage: quay.io/opendatahub/llama-stack:odh
-lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
+lsdName: rh-dev
+# lsdImage: quay.io/opendatahub/llama-stack:odh
+lsdImage: quay.io/opendatahub/llama-stack:rhoai-v2.23-latest
+lsdBaseDir: /opt/app-root/src
 lsdPort: 8321
 
 lsdEmbeddingModel: granite-embedding-125m
 lsdEmbeddingDimension: 768
 lsdEmbeddingModelProvider: sentence-transformers
 lsdChunkSizeInTokens: 256
+
+lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
 
 loaderImage: quay.io/atarazana/rag-loader:0.1.1
 loaderDelay: 10
@@ -97,7 +101,7 @@ mcpServers:
       uri: https://github.com/alpha-hack-program/eligibility-engine-mcp-rs.git
       ref: main
       path: .
-    image: quay.io/atarazana/eligibility-engine-mcp-rs:1.0.4
+    image: quay.io/atarazana/eligibility-engine-mcp-rs:1.0.6
     mcp_transport: "sse"
     protocol: "http"
     host: eligibility-engine

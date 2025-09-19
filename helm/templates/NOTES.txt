@@ -25,6 +25,7 @@ MCP Servers deployed:
 - {{ .id }}:
     - Git: {{ .vcs.uri }} / {{ .vcs.ref }}
     - Runtime: {{ .runtime }}
+    - Image: {{ .image }}
     - URI: uri: {{ .protocol }}://{{ .host }}:{{ .port }}{{ .uri }}
     {{- if .env }}
     - Environment variables:

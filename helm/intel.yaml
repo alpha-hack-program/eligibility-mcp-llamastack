@@ -5,14 +5,19 @@ app: eligibility-lsd
 namespace: eligibility-mcp-llamastack
 partOf: eligibility-mcp-llamastack
 
+# lsdName: rh-dev
+# lsdImage: quay.io/opendatahub/llama-stack:rhoai-v2.23-latest
 lsdImage: quay.io/opendatahub/llama-stack:odh
-lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
+lsdBaseDir: /opt/app-root
+# lsdMountPath: /opt/app-root/.llama/distributions
 lsdPort: 8321
 
 lsdEmbeddingModel: granite-embedding-125m
 lsdEmbeddingDimension: 768
 lsdEmbeddingModelProvider: sentence-transformers
 lsdChunkSizeInTokens: 256
+
+lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
 
 loaderImage: quay.io/atarazana/rag-loader:0.1.1
 loaderDelay: 10
@@ -67,7 +72,8 @@ models:
     runtime:
       templateName: vllm-gaudi-runtime
       templateDisplayName: vLLM Intel Gaudi Accelerator ServingRuntime for KServe
-      image: quay.io/modh/vllm:rhoai-2.22-gaudi
+      # image: quay.io/modh/vllm:rhoai-2.22-gaudi
+      image: docker.io/vishnumadhu/vllm:rhoai-rhel9.4-vllm-0.9.0
       resources:
         limits:
           cpu: '8'
