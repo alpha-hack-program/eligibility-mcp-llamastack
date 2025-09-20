@@ -20,7 +20,6 @@ metadata:
     app.openshift.io/route-disabled: "false"
     app.openshift.io/vcs-ref: {{ .vcs.ref }}
     app.openshift.io/vcs-uri: {{ .vcs.uri }}
-    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ $appName }}"}]'
   labels:
     app: {{ .host }}
     app.kubernetes.io/component: {{ .host }}

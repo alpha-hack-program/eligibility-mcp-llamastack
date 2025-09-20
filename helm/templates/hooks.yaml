@@ -106,7 +106,7 @@ stringData:
   MINIO_BUCKET: {{ .Values.minioBucket }}
 ---
 {{/*
-Generate the connects-to JSON for the deployment label
+Generate the connects-to JSON for the deployment annotation
 */}}
 {{- define "deployment.connectsTo" -}}
 {{- $connections := list -}}
@@ -133,7 +133,7 @@ metadata:
     # Helm post-install hook
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "2"
-    # "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
 spec:
   template:
     metadata:
@@ -151,46 +151,64 @@ spec:
         - |
           set -e
           
-          # Fail if DEPLOYMENT_NAME, NAMESPACE or LABEL_KEY is not set
-          if [ -z "${DEPLOYMENT_NAME}" ] || [ -z "${NAMESPACE}" ] || [ -z "${LABEL_KEY}" ]; then
-            echo "DEPLOYMENT_NAME, NAMESPACE or LABEL_KEY is not set"
-            exit 1
-          fi
-
           # Configuration - modify these variables as needed
-          DEPLOYMENT_NAME="${DEPLOYMENT_NAME}"
-          NAMESPACE="${NAMESPACE}"
-          LABEL_KEY="${LABEL_KEY}"
+          DEPLOYMENT_NAME="${DEPLOYMENT_NAME:-my-app-deployment}"
+          NAMESPACE="${NAMESPACE:-default}"
+          ANNOTATION_KEY="${ANNOTATION_KEY:-app.openshift.io/connects-to}"
           
+          echo "=== Debugging Information ==="
           echo "Looking for deployment: $DEPLOYMENT_NAME in namespace: $NAMESPACE"
+          echo "Current user context:"
+          oc whoami
+          echo "Available namespaces:"
+          oc get namespaces | head -10
+          echo "Deployments in target namespace:"
+          oc get deployments -n "$NAMESPACE" || echo "Failed to list deployments in namespace $NAMESPACE"
+          echo "============================"
           
-          # Check if deployment exists
-          DEPLOYMENT_YAML=$(oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o yaml)
-          echo "Deployment YAML: $DEPLOYMENT_YAML"
-          if [ -n "$DEPLOYMENT_YAML" ]; then
-            echo "Found deployment: $DEPLOYMENT_NAME"
+          # Check if deployment exists with more detailed error output
+          echo "Checking if deployment exists..."
+          if oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE"; then
+            echo "✓ Found deployment: $DEPLOYMENT_NAME"
             
             # Use the dynamically generated JSON from Helm template
-            LABEL_VALUE="$MODELS_JSON"
+            ANNOTATION_VALUE="$MODELS_JSON"
             
-            # Add label to the deployment
-            echo "Adding label: $LABEL_KEY"
-            echo "Label value: $LABEL_VALUE"
+            # Add annotation to the deployment using oc patch
+            echo "Adding annotation: $ANNOTATION_KEY"
+            echo "Annotation value: $ANNOTATION_VALUE"
             
-            # Use oc label command with the JSON value
-            oc label deployment "$DEPLOYMENT_NAME" \
+            # Use oc annotate instead of patch for better JSON handling
+            echo "Applying annotation to deployment..."
+            oc annotate deployment "$DEPLOYMENT_NAME" \
               -n "$NAMESPACE" \
-              "$LABEL_KEY=$LABEL_VALUE" \
+              "$ANNOTATION_KEY=$ANNOTATION_VALUE" \
               --overwrite
               
-            echo "Successfully labeled deployment $DEPLOYMENT_NAME"
+            echo "✓ Successfully annotated deployment $DEPLOYMENT_NAME"
             
-            # Optionally verify the label was added
-            echo "Current labels on deployment:"
-            oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o jsonpath='{.metadata.labels}' | jq .
+             # Add the part-of label
+            echo "Adding label: app.kubernetes.io/part-of"
+            oc label deployment "$DEPLOYMENT_NAME" \
+              -n "$NAMESPACE" \
+              "app.kubernetes.io/part-of=$PART_OF_LABEL" \
+              --overwrite
+              
+            echo "✓ Successfully labeled deployment $DEPLOYMENT_NAME"
             
+            # Optionally verify the annotation and label were added
+            echo "Current annotations on deployment:"
+            oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o jsonpath='{.metadata.annotations.app\.openshift\.io/connects-to}' || echo "Annotation not found"
+            echo ""
+            echo "Current part-of label on deployment:"
+            oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o jsonpath='{.metadata.labels.app\.kubernetes\.io/part-of}' || echo "Label not found"
+            echo ""
+
           else
-            echo "ERROR: Deployment $DEPLOYMENT_NAME not found in namespace $NAMESPACE"
+            echo "❌ ERROR: Failed to find deployment $DEPLOYMENT_NAME in namespace $NAMESPACE"
+            echo "Exit code from oc get: $?"
+            echo "Listing all deployments in namespace for debugging:"
+            oc get deployments -n "$NAMESPACE" -o wide || echo "Failed to list any deployments"
             exit 1
           fi
         env:
@@ -198,13 +216,13 @@ spec:
         - name: DEPLOYMENT_NAME
           value: "{{ .Values.app }}"
         - name: NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: LABEL_KEY
+          value: {{ .Values.namespace | quote }}
+        - name: ANNOTATION_KEY
           value: "app.openshift.io/connects-to"
         - name: MODELS_JSON
           value: {{ include "deployment.connectsTo" . | quote }}
+        - name: PART_OF_LABEL
+          value: {{ .Values.partOf | quote }}
 ---
 # ServiceAccount for the job
 apiVersion: v1
