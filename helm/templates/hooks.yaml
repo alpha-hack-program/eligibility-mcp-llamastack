@@ -1,0 +1,270 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.app }}-cache-hook-{{ randAlphaNum 5 | lower }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: cache-hook
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app }}
+        app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/part-of: {{ .Values.partOf }}
+        app.kubernetes.io/component: cache-hook
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: cache-hook
+        image: minio/mc:latest
+        command: ['sh', '-c']
+        args:
+          - |
+            set -e
+            # If HF_CACHE_DIR is not set, then fail
+            if [ -z "${HF_CACHE_DIR}" ]; then
+              echo "HF_CACHE_DIR is not set"
+              exit 1
+            fi
+            # Print HF_CACHE_DIR
+            echo "HF_CACHE_DIR: ${HF_CACHE_DIR}"
+            # Make dir if it doesn't exist
+            export MC_CONFIG_DIR=${HF_CACHE_DIR}/.mc
+            mkdir -p ${MC_CONFIG_DIR}
+
+            mc alias set minio ${MINIO_ENDPOINT} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --insecure
+            mc cp minio/${MINIO_BUCKET}/hub ${HF_CACHE_DIR} --insecure --recursive
+            mc cp minio/${MINIO_BUCKET}/huggingface ${HF_CACHE_DIR} --insecure --recursive
+        env:
+        - name: HF_CACHE_DIR
+          value: {{ .Values.lsdCacheMountPath }}
+        envFrom:
+        - secretRef:
+            name: {{ .Values.app }}-hooks-config
+        volumeMounts:
+        - name: hf-cache-volume
+          mountPath: {{ .Values.lsdCacheMountPath }}
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+      volumes:
+      - name: hf-cache-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.app }}-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.app }}-pvc
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "0"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.lsdStorageSize }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.app }}-hooks-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+stringData:
+  MINIO_ENDPOINT: {{ .Values.minioEndpoint }}
+  MINIO_ACCESS_KEY: {{ .Values.minioAccessKey }}
+  MINIO_SECRET_KEY: {{ .Values.minioSecretKey }}
+  MINIO_BUCKET: {{ .Values.minioBucket }}
+---
+{{/*
+Generate the connects-to JSON for the deployment label
+*/}}
+{{- define "deployment.connectsTo" -}}
+{{- $connections := list -}}
+{{- range .Values.models -}}
+{{- $connections = append $connections (dict "apiVersion" "apps/v1" "kind" "Deployment" "name" (printf "%s-predictor" .name)) -}}
+{{- end -}}
+{{- range .Values.mcpServers -}}
+{{- $connections = append $connections (dict "apiVersion" "apps/v1" "kind" "Deployment" "name" .host) -}}
+{{- end -}}
+{{- $connections | toJson -}}
+{{- end -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.app }}-labeler-hook-{{ randAlphaNum 5 | lower }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    # Helm post-install hook
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "2"
+    # "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  template:
+    metadata:
+      name: {{ .Values.app }}-labeler-hook-{{ randAlphaNum 5 | lower }}
+    spec:
+      serviceAccountName: deployment-labeler
+      restartPolicy: Never
+      containers:
+      - name: oc-client
+        # Official OpenShift CLI image
+        image: quay.io/openshift/origin-cli:latest
+        command: ["/bin/bash"]
+        args:
+        - -c
+        - |
+          set -e
+          
+          # Fail if DEPLOYMENT_NAME, NAMESPACE or LABEL_KEY is not set
+          if [ -z "${DEPLOYMENT_NAME}" ] || [ -z "${NAMESPACE}" ] || [ -z "${LABEL_KEY}" ]; then
+            echo "DEPLOYMENT_NAME, NAMESPACE or LABEL_KEY is not set"
+            exit 1
+          fi
+
+          # Configuration - modify these variables as needed
+          DEPLOYMENT_NAME="${DEPLOYMENT_NAME}"
+          NAMESPACE="${NAMESPACE}"
+          LABEL_KEY="${LABEL_KEY}"
+          
+          echo "Looking for deployment: $DEPLOYMENT_NAME in namespace: $NAMESPACE"
+          
+          # Check if deployment exists
+          DEPLOYMENT_YAML=$(oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o yaml)
+          echo "Deployment YAML: $DEPLOYMENT_YAML"
+          if [ -n "$DEPLOYMENT_YAML" ]; then
+            echo "Found deployment: $DEPLOYMENT_NAME"
+            
+            # Use the dynamically generated JSON from Helm template
+            LABEL_VALUE="$MODELS_JSON"
+            
+            # Add label to the deployment
+            echo "Adding label: $LABEL_KEY"
+            echo "Label value: $LABEL_VALUE"
+            
+            # Use oc label command with the JSON value
+            oc label deployment "$DEPLOYMENT_NAME" \
+              -n "$NAMESPACE" \
+              "$LABEL_KEY=$LABEL_VALUE" \
+              --overwrite
+              
+            echo "Successfully labeled deployment $DEPLOYMENT_NAME"
+            
+            # Optionally verify the label was added
+            echo "Current labels on deployment:"
+            oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o jsonpath='{.metadata.labels}' | jq .
+            
+          else
+            echo "ERROR: Deployment $DEPLOYMENT_NAME not found in namespace $NAMESPACE"
+            exit 1
+          fi
+        env:
+        # Environment variables for configuration
+        - name: DEPLOYMENT_NAME
+          value: "{{ .Values.app }}"
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: LABEL_KEY
+          value: "app.openshift.io/connects-to"
+        - name: MODELS_JSON
+          value: {{ include "deployment.connectsTo" . | quote }}
+---
+# ServiceAccount for the job
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+---
+# Role with permissions to get and update deployments
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch", "update"]
+---
+# RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+subjects:
+- kind: ServiceAccount
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+roleRef:
+  kind: Role
+  name: deployment-labeler
+  apiGroup: rbac.authorization.k8s.io

@@ -5,6 +5,16 @@ app: eligibility-lsd
 namespace: eligibility-mcp-llamastack
 partOf: eligibility-mcp-llamastack
 
+lsdStorageSize: 5Gi
+lsdStorageMountPath: /opt/app-root/.llama/distributions/rh
+
+minioEndpoint: http://minio-service.minio.svc.cluster.local:9000
+minioAccessKey: minio
+minioSecretKey: minio123
+minioBucket: hf-cache
+
+lsdCacheMountPath: /data/.hf_cache
+
 lsdImage: quay.io/opendatahub/llama-stack:odh
 lsdPlaygroundImage: quay.io/rh-aiservices-bu/llama-stack-playground:0.2.11
 lsdPort: 8321

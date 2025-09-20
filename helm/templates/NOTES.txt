@@ -1,4 +1,4 @@
-🎉 Your vLLM + Llama Stack-powered Demo has been successfully deployed!
+🎉 Your vLLM + Llama Stack-powered Demo (**{{ .Values.app }}**) has been successfully deployed!
 
 You can access it from project **{{ .Release.Namespace }}**
 
