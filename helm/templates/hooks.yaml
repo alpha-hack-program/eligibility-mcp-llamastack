@@ -1,0 +1,280 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app }}-loader-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+data:
+  EMBEDDING_MODEL: "{{ .Values.lsdEmbeddingModel }}"
+  EMBEDDING_DIMENSION: {{ .Values.lsdEmbeddingDimension | toString | quote }}
+  EMBEDDING_MODEL_PROVIDER: "{{ .Values.lsdEmbeddingModelProvider }}"
+  LLAMA_STACK_HOST: "{{ .Values.app }}-service"
+  LLAMA_STACK_PORT: {{ .Values.lsdPort | toString | quote }}
+  LLAMA_STACK_SECURE: "False"
+  DOCS_FOLDER: "{{ .Values.docsFolder }}"
+  CHUNK_SIZE_IN_TOKENS: "{{ .Values.lsdChunkSizeInTokens }}"
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.app }}-loader-{{ randAlphaNum 5 | lower }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: loader
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app }}
+        app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/part-of: {{ .Values.partOf }}
+        app.kubernetes.io/component: loader
+    spec:
+      restartPolicy: Never
+      initContainers:
+      - name: deterministic-delay-and-health-check
+        image: curlimages/curl:8.5.0
+        command: ['sh', '-c']
+        args:
+          - |
+            set -e
+            
+            # Try to reach /docs with LLAMA_STACK_HOST and LLAMA_STACK_PORT for MAX_RETRIES times and sleep DELAY seconds between each try
+            MAX_RETRIES={{ .Values.loaderJobRetries | default 10 }}
+            DELAY={{ .Values.loaderDelay | default 5 | toString | quote }}
+            HEALTH_CHECK_URL=http://{{ .Values.app }}-service:{{ .Values.lsdPort }}/docs
+            for i in $(seq 1 ${MAX_RETRIES}); do
+              if curl -f $HEALTH_CHECK_URL; then
+                break
+              fi
+              sleep ${DELAY}
+            done
+            if [ $i -eq ${MAX_RETRIES} ]; then
+              echo "Failed to reach /docs after ${MAX_RETRIES} tries"
+              exit 1
+            fi
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.app }}-loader-config
+      containers:
+      - name: loader
+        image: "{{ .Values.loaderImage }}"
+        imagePullPolicy: Always
+        args:
+        - --delay
+        - {{ .Values.loaderDelay | default 0 | toString | quote }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.app }}-loader-config
+        volumeMounts:
+        - name: docs-volume
+          mountPath: "{{ .Values.docsFolder }}"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+      volumes:
+      - name: docs-volume
+        configMap:
+          name: {{ .Values.app }}-documents
+  backoffLimit: {{ .Values.loaderJobRetries | default 3 }}
+---
+{{/*
+Generate the connects-to JSON for the deployment annotation
+*/}}
+{{- define "deployment.connectsTo" -}}
+{{- $connections := list -}}
+{{- range .Values.models -}}
+{{- $connections = append $connections (dict "apiVersion" "apps/v1" "kind" "Deployment" "name" (printf "%s-predictor" .name)) -}}
+{{- end -}}
+{{- range .Values.mcpServers -}}
+{{- $connections = append $connections (dict "apiVersion" "apps/v1" "kind" "Deployment" "name" .host) -}}
+{{- end -}}
+{{- $connections | toJson -}}
+{{- end -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.app }}-labeler-hook-{{ randAlphaNum 5 | lower }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    # Helm post-install hook
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  template:
+    metadata:
+      name: {{ .Values.app }}-labeler-hook-{{ randAlphaNum 5 | lower }}
+    spec:
+      serviceAccountName: deployment-labeler
+      restartPolicy: Never
+      containers:
+      - name: oc-client
+        # Official OpenShift CLI image
+        image: quay.io/openshift/origin-cli:latest
+        command: ["/bin/bash"]
+        args:
+        - -c
+        - |
+          set -e
+          
+          # Configuration - modify these variables as needed
+          DEPLOYMENT_NAME="${DEPLOYMENT_NAME:-my-app-deployment}"
+          NAMESPACE="${NAMESPACE:-default}"
+          ANNOTATION_KEY="${ANNOTATION_KEY:-app.openshift.io/connects-to}"
+          
+          echo "=== Debugging Information ==="
+          echo "Looking for deployment: $DEPLOYMENT_NAME in namespace: $NAMESPACE"
+          echo "Current user context:"
+          oc whoami
+          echo "Available namespaces:"
+          oc get namespaces | head -10
+          echo "Deployments in target namespace:"
+          oc get deployments -n "$NAMESPACE" || echo "Failed to list deployments in namespace $NAMESPACE"
+          echo "============================"
+          
+          # Check if deployment exists with more detailed error output
+          echo "Checking if deployment exists..."
+          if oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE"; then
+            echo "✓ Found deployment: $DEPLOYMENT_NAME"
+            
+            # Use the dynamically generated JSON from Helm template
+            ANNOTATION_VALUE="$MODELS_JSON"
+            
+            # Add annotation to the deployment using oc patch
+            echo "Adding annotation: $ANNOTATION_KEY"
+            echo "Annotation value: $ANNOTATION_VALUE"
+            
+            # Use oc annotate instead of patch for better JSON handling
+            echo "Applying annotation to deployment..."
+            oc annotate deployment "$DEPLOYMENT_NAME" \
+              -n "$NAMESPACE" \
+              "$ANNOTATION_KEY=$ANNOTATION_VALUE" \
+              --overwrite
+              
+            echo "✓ Successfully annotated deployment $DEPLOYMENT_NAME"
+            
+             # Add the part-of label
+            echo "Adding label: app.kubernetes.io/part-of"
+            oc label deployment "$DEPLOYMENT_NAME" \
+              -n "$NAMESPACE" \
+              "app.kubernetes.io/part-of=$PART_OF_LABEL" \
+              --overwrite
+              
+            echo "✓ Successfully labeled deployment $DEPLOYMENT_NAME"
+            
+            # Optionally verify the annotation and label were added
+            echo "Current annotations on deployment:"
+            oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o jsonpath='{.metadata.annotations.app\.openshift\.io/connects-to}' || echo "Annotation not found"
+            echo ""
+            echo "Current part-of label on deployment:"
+            oc get deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE" -o jsonpath='{.metadata.labels.app\.kubernetes\.io/part-of}' || echo "Label not found"
+            echo ""
+
+          else
+            echo "❌ ERROR: Failed to find deployment $DEPLOYMENT_NAME in namespace $NAMESPACE"
+            echo "Exit code from oc get: $?"
+            echo "Listing all deployments in namespace for debugging:"
+            oc get deployments -n "$NAMESPACE" -o wide || echo "Failed to list any deployments"
+            exit 1
+          fi
+        env:
+        # Environment variables for configuration
+        - name: DEPLOYMENT_NAME
+          value: "{{ .Values.app }}"
+        - name: NAMESPACE
+          value: {{ .Values.namespace | quote }}
+        - name: ANNOTATION_KEY
+          value: "app.openshift.io/connects-to"
+        - name: MODELS_JSON
+          value: {{ include "deployment.connectsTo" . | quote }}
+        - name: PART_OF_LABEL
+          value: {{ .Values.partOf | quote }}
+---
+# ServiceAccount for the job
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+---
+# Role with permissions to get and update deployments
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch", "update"]
+---
+# RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app }}
+    app.kubernetes.io/name: {{ include "rag-lsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    app.kubernetes.io/component: labeler-hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+subjects:
+- kind: ServiceAccount
+  name: deployment-labeler
+  namespace: {{ .Values.namespace }}
+roleRef:
+  kind: Role
+  name: deployment-labeler
+  apiGroup: rbac.authorization.k8s.io
