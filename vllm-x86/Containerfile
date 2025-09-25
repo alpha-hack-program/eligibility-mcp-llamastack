@@ -1,0 +1,13 @@
+ARG BASE_IMAGE
+ARG BASE_TAG
+ARG VERSION
+ARG MAINTAINER="Alpha Hack Group <alpha@github.com>"
+ARG DESCRIPTION="Eligibility Engine MCP Server - Model Context Protocol server for eligibility evaluation"
+
+FROM ${BASE_IMAGE}:${BASE_TAG}
+
+COPY vllm/examples /workspace/vllm/examples
+
+# RUN mkdir -p /workspace/vllm/examples
+
+# RUN wget -o '/workspace/vllm/examples/tool_chat_template_granite.jinja' https://raw.githubusercontent.com/vllm-project/vllm/refs/heads/main/examples/tool_chat_template_granite.jinja

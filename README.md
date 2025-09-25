@@ -217,7 +217,7 @@ The table includes input parameters (family relationship, situation, single-pare
 ## Example queries
 
 - My mother had an accident and she's at the hospital. I have to take care of her, can I get access to the unpaid leave aid?
-- My mother had an accident and she's at the hospital. I have to take care of her, tell me if I can get access to the unpaid leave aid and the requirements I have to meet.
+- My mother had an accident and she's at the hospital. I have to take care of her, tell me if I can get access to the unpaid leave aid and the requirements I have to meet and how much will I get?
 - I have just adopted two children, at the same time, aged 3 and 5, am I elegible for the unpaid leave aid? How much?
 - I have just adopted two children, at the same time, aged 3 and 5, tell me if I'm elegible for the unpaid leave aid and which requirements I should meet.
 - I'm a single mom and I just had a baby, may I get access to the unpaid leave aid?
@@ -225,7 +225,7 @@ The table includes input parameters (family relationship, situation, single-pare
 
 ## Example System Prompt
 
-You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. Avoid references to tools or function calling. Infer parameters for function calls or instead use default values or request the needed information from the user. Call the RAG tool first if unsure. Parameter single_parent_family only is necessary if birth/adoption/foster_care otherwise use false.
+You are a helpful AI assistant that uses tools to help citizens of the Republic of Lysmark. Answers should be concise and human readable. AVOID references to tools or function calling nor show any JSON. Infer parameters for function calls or instead use default values or request the needed information from the user. Call the RAG tool first if unsure. Parameter single_parent_family only is necessary if birth/adoption/foster_care otherwise use false.
 
 ## Uninstall
 
