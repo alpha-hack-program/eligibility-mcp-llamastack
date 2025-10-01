@@ -12,6 +12,338 @@ metadata:
     {{- end }}
     {{- end }}
 data:
+  2025_61-FR_INT.md: |
+    # REPUBLIC OF LYSMARK  
+    **MINISTRY OF FINANCE AND REVENUE**  
+    **Directorate of Tax Administration**  
+
+    ---
+
+    ## GUIDANCE NOTE No. 2025/61-FR/INT  
+    ### Application of the Progressive Income Tax and Surcharge Act (Act No. 2025/61-FR)  
+
+    **Effective:** 1 January 2026  
+    **Audience:** Tax Officers, Regional Tax Offices  
+    **Classification:** Internal – Operational Guidance  
+
+    ---
+
+    ## 1. Purpose  
+
+    This Guidance Note explains the method of assessment, calculation, and enforcement of the progressive income tax introduced under Act No. 2025/61-FR. It is intended for use by tax officers in reviewing declarations, issuing assessments, and advising taxpayers.  
+
+    ---
+
+    ## 2. General Principles  
+
+    1. **Progressive Taxation**: Tax liability increases as income rises, with different brackets applying different marginal rates.  
+    2. **Bracket Application**: Only income above a threshold is taxed at the higher rate.  
+    3. **Surcharge**: Applied if the total tax (before surcharge) exceeds **5000**.  
+
+    ---
+
+    ## 3. Step-by-Step Assessment Method  
+
+    ### Step 1 – Determine Taxable Income  
+    - Start with declared gross income.  
+    - Deduct allowable expenses (as defined under the General Tax Code).  
+    - Confirm residency for the fiscal year.  
+
+    ### Step 2 – Apply Brackets  
+    - **First Bracket**: Income up to 10000 → taxed at 10%.  
+    - **Second Bracket**: Any income above 10000 → taxed at 20%.  
+
+    ### Step 3 – Calculate Base Tax  
+    - Add the amounts from each bracket to determine base tax liability.  
+
+    ### Step 4 – Test for Surcharge  
+    - If base tax > 5000, apply surcharge = 2% × base tax.  
+
+    ### Step 5 – Issue Assessment  
+    - Record both base tax and surcharge clearly in notice.  
+    - Ensure taxpayer is informed of payment deadline.  
+
+    ---
+
+    ## 4. Worked Examples  
+
+    ### Example A – Middle Income  
+    Taxpayer earns **40000**.  
+    - First 10000 × 10% = 1000  
+    - Remaining 30000 × 20% = 6000  
+    - Base Tax = 7000  
+    - Since > 5000, surcharge = 2% × 7000 = 140  
+    - **Total Tax = 7,140**  
+
+    ### Example B – Low Income  
+    Taxpayer earns **8000**.  
+    - Entire 8000 falls within first bracket: 8000 × 10% = 800  
+    - Base Tax = 800 (< 5000) → No surcharge  
+    - **Total Tax = 800**  
+
+    ### Example C – High Income  
+    Taxpayer earns **120000**.  
+    - First 10000 × 10% = 1000  
+    - Remaining 110000 × 20% = 22000  
+    - Base Tax = 23000  
+    - Surcharge = 2% × 23000 = 460  
+    - **Total Tax = 23,460**  
+
+    ---
+
+    ## 5. Compliance and Enforcement  
+
+    - **Timeliness**: Ensure notices are issued within 90 days of filing.  
+    - **Interest**: Apply statutory 4% annual interest on overdue balances.  
+    - **Penalties**: Non-filers must be reported to Enforcement Division.  
+    - **Documentation**: Officers must retain assessment calculations in taxpayer’s digital file.  
+
+    ---
+
+    ## 6. Appeals  
+
+    - Appeals must be filed within 30 days.  
+    - Officers must provide complete reasoning and evidence for contested assessments.  
+    - All appeal submissions must be logged in the Fiscal Case Management System (FCMS).  
+
+    ---
+
+    ## 7. Closing Notes  
+
+    This Guidance Note shall be reviewed annually by the Directorate of Tax Administration. Updates will be issued in response to amendments in legislation or CPI-index adjustments of income brackets.  
+
+    ---
+
+    **Issued by:**  
+    Chief Tax Commissioner, Directorate of Tax Administration  
+    Republic of Lysmark  
+    **Date:** 10 July 2025  
+
+    **Classification:** Internal Operational Guidance – Not for public distribution
+  2025_61-FR.md: |
+    ---
+    **REPUBLIC OF LYSMARK**  
+    **MINISTRY OF FINANCE AND REVENUE**
+    ---
+
+    # ACT No. 2025/61-FR  
+    ## PROGRESSIVE INCOME TAX AND SURCHARGE ACT  
+
+    **Adopted:** 2 July 2025  
+    **Effective:** 1 September 2025  
+    **Legal Basis:** Constitution of Lysmark, Article 33 (Fiscal Sovereignty); Tax Harmonization Directive 2018/44 of the Union of Northern States  
+    **Official Journal Reference:** OJ FR 2025/61, p. 145-162  
+
+    ---
+
+    ### PREAMBLE  
+
+    The Parliament of the Republic of Lysmark, acting under Article 33 of the Constitution and mindful of its obligation to ensure equitable distribution of fiscal burdens, hereby enacts the following rules governing the calculation, collection, and application of the personal income tax.  
+
+    This Act codifies a progressive system of taxation to reflect ability to pay, introduces a surcharge mechanism to ensure adequate revenue in high-income segments, and establishes safeguards for transparency, fairness, and compliance.  
+
+    ---
+
+    ## Article 1 – Purpose and Scope  
+
+    1. This Act regulates the assessment of personal income tax on natural persons domiciled in the Republic of Lysmark.  
+    2. The system applies progressive rates to defined taxable income brackets, with an additional surcharge applied where total calculated tax exceeds the statutory threshold.  
+    3. This Act applies to all resident taxpayers; non-resident taxpayers remain subject to the Non-Residents Income Act.  
+
+    ---
+
+    ## Article 2 – Income Brackets and Rates  
+
+    1. Taxable income shall be divided into progressive brackets.  
+    2. Each bracket shall be subject to the following marginal rates:  
+      - First bracket: 10% on income up to **10000**  
+      - Second bracket: 20% on income exceeding **10000**  
+    3. Parliament may adjust bracket amounts annually by reference to the Consumer Price Index.  
+
+    ---
+
+    ## Article 3 – Surcharge  
+
+    1. Where the tax calculated pursuant to Article 2 exceeds **5000**, a surcharge of **2% of the total tax liability** shall be applied.  
+    2. The surcharge shall be collected concurrently with the principal tax liability and subject to the same enforcement and penalty provisions.  
+
+    ---
+
+    ## Article 4 – Taxpayer Obligations  
+
+    1. Every taxpayer shall file an annual income declaration no later than 31 March of the following year.  
+    2. The declaration shall include:  
+      - Gross income by source,  
+      - Deductible expenses,  
+      - Proof of residency, and  
+      - Any prior payments or withholdings.  
+    3. Failure to file shall result in administrative penalties as specified under the General Tax Code.  
+
+    ---
+
+    ## Article 5 – Collection and Enforcement  
+
+    1. The Ministry of Finance and Revenue shall issue collection notices within 90 days of filing.  
+    2. Taxpayers must settle liabilities within 30 days of notice unless enrolled in an authorized installment plan.  
+    3. Unpaid balances shall accrue statutory interest at 4% per annum until paid.  
+
+    ---
+
+    ## Article 6 – Appeals  
+
+    1. Taxpayers may contest assessments within 30 days of notice by filing an administrative appeal with the Directorate of Fiscal Review.  
+    2. Final administrative decisions may be appealed to the Fiscal Chamber of the Supreme Court of Lysmark.  
+
+    ---
+
+    ## Article 7 – Compatibility and Supremacy  
+
+    1. This Act supersedes prior provisions on progressive taxation under the 2009 Income Act.  
+    2. Provisions of this Act are compatible with obligations under the Union of Northern States’ Fiscal Harmonization Directive.  
+
+    ---
+
+    ## Article 8 – Implementation  
+
+    1. The Ministry of Finance and Revenue is tasked with issuing regulations necessary for the practical enforcement of this Act.  
+    2. This Act shall enter into force on **1 September 2025** and remain valid until amended or repealed by Parliament.  
+
+    ---
+
+    **Adopted by the Parliament of the Republic of Lysmark**  
+    **Promulgated by the President of the Republic of Lysmark**
+  LyFin-Compliance-Annex.md: |
+    # Lysmark Finance Inc.  
+    **Operational Annex – Default Parameters**  
+    **Republic of Lysmark – Legal & Compliance Division**  
+
+    *Effective as of: September 2025*  
+    *Reviewed quarterly – Subject to update by Compliance*  
+
+    ---
+
+    ## Section A. Contractual Penalties  
+    - Daily Penalty Rate: **100 per day**  
+    - Maximum Cap: **1000**  
+    - Interest on Penalty: **5 percent annual**  
+
+    ---
+
+    ## Section B. Voting Thresholds  
+    - Minimum Turnout: **60 percent of eligible voters**  
+    - Approval Thresholds:  
+      - Ordinary Resolutions: **greater than 50 percent**  
+      - Amendments: **at least 66.7 percent (two-thirds)**  
+
+    ---
+
+    ## Section C. Loan Repayment Waterfall  
+    - Senior Debt Priority: **100 percent repayment before junior allocation**  
+    - Junior Debt Priority: **Allocated from remaining balance**  
+    - Residual Equity: **Distributed only after all debts satisfied**  
+
+    ---
+
+    ## Section D. Housing Assistance  
+    - Default AMI (National Median): **50000**  
+    - Income Ceiling: **60 percent of AMI = 30000**  
+    - Household Adjustment: **plus 10 percent threshold for households larger than 4**  
+    - Subsidy Exclusivity: **Applicants with any other housing subsidy are ineligible**  
+
+    ---
+
+    **Note:** These values are for internal operational use. Updates shall be circulated via Compliance Circulars and recorded in the Regulatory Change Log.
+  LysFin-Compliance.md: |
+    # Lysmark Finance Inc.  
+    **Internal Compliance and Policy Memorandum**  
+    **Republic of Lysmark – Legal & Compliance Division**  
+
+    *Confidential – Internal Use Only*  
+
+    ---
+
+    ## Section 1. Contractual Penalties for Delay
+
+    ### Legal Basis
+    In accordance with the Commercial Obligations Act of the Republic of Lysmark, and pursuant to Lysmark Finance Inc. contractual standards, any failure to perform within agreed deadlines shall incur **liquidated damages**.  
+
+    The principles are:  
+    1. **Daily Accrual**: A fixed monetary penalty per day of delay.  
+    2. **Cap Limitation**: No penalty shall exceed the maximum agreed contractual cap.  
+    3. **Interest Application**: Once the penalty is determined (whether capped or not), statutory or contractual interest shall accrue on that amount.  
+
+    ### Internal Directive
+    - Penalties must be **automatically computed** according to these three principles.  
+    - No discretionary waiver may be granted without Legal & Compliance sign-off.  
+    - All calculations must be archived for audit purposes.  
+
+    ---
+
+    ## Section 2. Voting Thresholds for Corporate and Organizational Decisions
+
+    ### Legal Basis
+    Under the Corporate Governance Code of the Republic of Lysmark, Lysmark Finance Inc. and entities under its stewardship must observe minimum standards for voting legitimacy:  
+
+    1. **Turnout Requirement**: A quorum exists only if 60% or more of eligible voters participate.  
+    2. **Approval Requirements**:  
+      - *Ordinary resolutions*: require a simple majority (>50%).  
+      - *Amendments to constitutional documents*: require a special majority (≥ two-thirds).  
+
+    ### Internal Directive
+    - No resolution shall be recognized absent compliance with turnout and threshold provisions.  
+    - Internal systems must **validate both turnout and approval** before recording an outcome.  
+    - Results must be reported with turnout % and approval %.  
+
+    ---
+
+    ## Section 3. Loan Repayment Waterfall
+
+    ### Legal Basis
+    In line with Lysmark Financial Instruments Act §42 and company policy on structured financing, repayment of multi-tier debt shall observe strict priority rules:  
+
+    1. **Senior Creditors**: Repaid in full prior to any distribution to subordinate creditors.  
+    2. **Junior Creditors**: Paid subsequent to senior creditors, up to the remaining available amount.  
+    3. **Residual Equity**: Only after full satisfaction of senior and junior claims shall residual amounts be made available to equity holders.  
+
+    ### Internal Directive
+    - Repayment allocations must **follow this priority order without exception**.  
+    - Systems must record both obligations outstanding and amounts distributed.  
+    - Deviation from priority constitutes a compliance breach.  
+
+    ---
+
+    ## Section 4. Housing Assistance Eligibility – Public Program Interface
+
+    ### Legal Basis
+    Pursuant to Lysmark Housing Support Regulation §19 and our operational partnership with the Ministry of Social Development, eligibility for public housing assistance shall be determined as follows:  
+
+    1. **Income Ceiling**: Household income must not exceed 60% of the Area Median Income (AMI).  
+    2. **Household Adjustment**: For households of more than four members, the income ceiling is raised by 10%.  
+    3. **Exclusivity of Benefit**: Applicants already receiving federal or regional housing subsidies are not eligible.  
+
+    ### Internal Directive
+    - Applications must be tested against all three criteria.  
+    - Eligibility determination is **binary** (eligible/not eligible).  
+    - Supporting documentation must be attached and stored.  
+    - False positives constitute regulatory exposure and must be reported to Compliance.  
+
+    ---
+
+    ## Compliance Summary
+
+    - All four areas — **Contractual Penalties**, **Voting Thresholds**, **Loan Waterfalls**, and **Housing Eligibility** — derive directly from statutory obligations and internal governance standards.  
+    - Engineering systems (e.g. CompatibilityEngine) are required to **implement these rules precisely**, without discretionary variation.  
+    - Legal & Compliance retains authority to approve exceptions, update rules in line with legislative amendments, and audit adherence.  
+
+    ---
+
+    **Prepared by:**  
+    Legal & Compliance Division  
+    Lysmark Finance Inc.  
+
+    **Effective Date:** September 2025  
+
+    **Confidential – Internal Use Only**
   2025-47-SA-Act.md: |
     ---
 
