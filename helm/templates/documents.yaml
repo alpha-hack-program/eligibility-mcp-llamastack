@@ -355,3 +355,479 @@ data:
     ---
 
     *This is a fictional document for demonstration purposes only.*
+  2025_102_SD.md: |
+    ---
+    **REPUBLIC OF LYSMARK**  
+    **MINISTRY OF SOCIAL DEVELOPMENT AND HOUSING**
+    ---
+
+    # ACT No. 2025/102-SD  
+    ## PUBLIC HOUSING ASSISTANCE ELIGIBILITY ACT
+
+    **Adopted:** 18 October 2025  
+    **Effective:** 1 January 2026  
+    **Legal Basis:** Constitution of Lysmark, Article 22 (Social Rights); Housing Support Directive 2022/09 of the Union of Northern States  
+    **Official Journal Reference:** OJ SD 2025/102, p. 578-595
+
+    ---
+
+    ### PREAMBLE
+
+    The Parliament of the Republic of Lysmark, committed to ensuring adequate housing for all citizens while directing limited public resources to those most in need, hereby establishes transparent and equitable eligibility criteria for public housing assistance programs.
+
+    ---
+
+    ## Article 1 — Purpose and Scope
+
+    1. This Act governs eligibility determination for all public housing assistance programs administered by the Republic of Lysmark or its regional authorities.
+    2. Assistance includes:
+       - Rental subsidies
+       - Housing vouchers
+       - Below-market public housing units
+       - First-time homebuyer grants
+    3. This Act does not affect emergency shelter provisions.
+
+    ---
+
+    ## Article 2 — Area Median Income (AMI) Standard
+
+    1. Eligibility shall be assessed by reference to **Area Median Income (AMI)** as calculated annually by the Ministry of Social Development and Housing.
+    2. AMI values shall be published for each administrative region by 31 December of the preceding year.
+    3. Where regional data is unavailable, the national median income shall apply.
+    4. AMI calculations shall be based on gross household income including all sources.
+
+    ---
+
+    ## Article 3 — Base Income Ceiling
+
+    1. To qualify for housing assistance, household income must not exceed **60% of the applicable AMI**.
+    2. This threshold is calculated as: Income Ceiling = AMI × 0.60
+    3. Households with income exceeding this ceiling are categorically ineligible.
+
+    ---
+
+    ## Article 4 — Household Size Adjustment
+
+    1. For households with **more than four (4) members**, the income ceiling shall be increased by **10%**.
+    2. The adjusted threshold is calculated as: 
+       - Adjusted Ceiling = (AMI × 0.60) × 1.10
+       - Equivalently: Adjusted Ceiling = AMI × 0.66
+    3. This adjustment recognizes the increased financial burden of larger households.
+    4. Household members include all persons residing in the dwelling, regardless of relationship.
+
+    ---
+
+    ## Article 5 — Subsidy Exclusivity Requirement
+
+    1. Applicants already receiving **any other housing subsidy** from federal, regional, or municipal sources are **ineligible** for assistance under this Act.
+    2. Other subsidies include:
+       - Rental assistance from other programs
+       - Mortgage interest subsidies
+       - Property tax relief specifically tied to housing need
+       - Employer-provided housing benefits exceeding market rates
+    3. General welfare benefits and child allowances do not constitute housing subsidies for this purpose.
+
+    ---
+
+    ## Article 6 — Eligibility Determination Process
+
+    Applications shall be evaluated using this three-stage test:
+
+    **Stage 1 - Income Test:**
+    - Household size ≤ 4: Income must be ≤ (AMI × 0.60)
+    - Household size > 4: Income must be ≤ (AMI × 0.66)
+
+    **Stage 2 - Household Composition:**
+    - Verify actual number of household members
+    - Apply appropriate income ceiling
+
+    **Stage 3 - Subsidy Exclusivity:**
+    - Confirm absence of other housing subsidies
+    - Verify supporting documentation
+
+    Applicants must satisfy all three stages to be deemed eligible.
+
+    ---
+
+    ## Article 7 — Documentation Requirements
+
+    1. Applicants must provide:
+       - Proof of gross household income (tax returns, pay stubs, benefit statements)
+       - Proof of household composition (identification documents, lease agreements)
+       - Declaration of other subsidies received
+       - Certification that information is accurate and complete
+    2. False statements constitute fraud and result in disqualification and recovery of benefits.
+
+    ---
+
+    ## Article 8 — Annual Recertification
+
+    1. Recipients must recertify eligibility annually by submitting updated documentation.
+    2. Households whose circumstances change during the benefit period must report changes within 30 days.
+    3. Failure to recertify results in automatic suspension of benefits.
+
+    ---
+
+    ## Article 9 — Appeals
+
+    1. Denied applicants may appeal within 30 days to the Regional Housing Appeals Board.
+    2. Appeals must be based on:
+       - Factual errors in the application assessment
+       - Incorrect application of eligibility criteria
+       - Procedural irregularities
+    3. Appeals Boards shall issue written decisions within 60 days.
+
+    ---
+
+    ## Article 10 — Enforcement and Compliance
+
+    1. The Ministry of Social Development and Housing shall conduct random audits of eligibility determinations.
+    2. Administrative bodies making eligibility errors face corrective action requirements.
+    3. Systematic non-compliance may result in loss of program funding.
+
+    ---
+
+    ## Article 11 — Privacy and Data Protection
+
+    1. All applicant information shall be treated as confidential and protected under the Data Protection Act.
+    2. Information may only be shared with other agencies for verification purposes with applicant consent.
+    3. Unauthorized disclosure constitutes a criminal offense.
+
+    ---
+
+    ## Article 12 — Implementation
+
+    1. The Ministry of Social Development and Housing is tasked with issuing regulations necessary for the practical enforcement of this Act.
+    2. This Act shall enter into force on **1 January 2026** and remain valid until amended or repealed by Parliament.
+
+    ---
+
+    **Adopted by the Parliament of the Republic of Lysmark**  
+    **Promulgated by the President of the Republic of Lysmark**
+  2025_73_JU.md: |
+    ---
+    **REPUBLIC OF LYSMARK**  
+    **MINISTRY OF JUSTICE**
+    ---
+
+    # ACT No. 2025/73-JU  
+    ## COMMERCIAL OBLIGATIONS AND LIQUIDATED DAMAGES ACT
+
+    **Adopted:** 15 August 2025  
+    **Effective:** 1 October 2025  
+    **Legal Basis:** Constitution of Lysmark, Article 28 (Contract Law); Commercial Harmonization Directive 2019/33 of the Union of Northern States  
+    **Official Journal Reference:** OJ JU 2025/73, p. 201-215
+
+    ---
+
+    ### PREAMBLE
+
+    The Parliament of the Republic of Lysmark, recognizing the necessity of predictable remedies for breach of commercial obligations and the importance of balancing creditor protection with debtor fairness, hereby enacts rules governing liquidated damages for delayed performance.
+
+    ---
+
+    ## Article 1 — Purpose and Scope
+
+    1. This Act regulates the calculation and enforcement of liquidated damages arising from delayed performance of commercial obligations.
+    2. It applies to all commercial contracts governed by Lysmark law where parties have agreed to time-sensitive performance obligations.
+    3. Consumer contracts remain subject to the Consumer Protection Act.
+
+    ---
+
+    ## Article 2 — Daily Accrual of Penalties
+
+    1. Where a contract specifies liquidated damages for delay, penalties shall accrue on a **daily basis** from the first day following the agreed deadline.
+    2. The daily rate shall be as stipulated in the contract or, absent agreement, at the statutory default rate established by the Ministry of Justice.
+    3. Accrual continues until performance is completed or the contract is terminated.
+
+    ---
+
+    ## Article 3 — Maximum Cap Limitation
+
+    1. No liquidated damages shall exceed the **contractual maximum cap** where such a cap has been agreed between parties.
+    2. Once the accumulated daily penalties reach the cap, no further penalty accrual shall occur, regardless of continued delay.
+    3. The cap limitation protects against disproportionate penalties while maintaining incentive for timely performance.
+
+    ---
+
+    ## Article 4 — Interest on Penalty Obligations
+
+    1. Once the penalty amount is determined (whether capped or uncapped), **statutory interest** shall accrue on that penalty amount.
+    2. Interest applies from the date the penalty becomes due and payable until actual payment.
+    3. The interest rate shall be as specified in the contract or, absent agreement, at the statutory commercial rate.
+
+    ---
+
+    ## Article 5 — Calculation Methodology
+
+    The total amount owed shall be calculated as follows:
+
+    1. **Step 1:** Determine days of delay from deadline to performance/termination date.
+    2. **Step 2:** Calculate base penalty = days × daily rate.
+    3. **Step 3:** Apply cap limitation if base penalty exceeds contractual maximum.
+    4. **Step 4:** Calculate interest on the final penalty amount (post-cap if applicable).
+    5. **Step 5:** Total obligation = capped/uncapped penalty + accrued interest.
+
+    ---
+
+    ## Article 6 — Enforcement and Collection
+
+    1. Creditors may enforce liquidated damages through standard debt collection procedures.
+    2. Courts shall not reduce agreed liquidated damages except where they constitute an unlawful penalty under Article 29 of the Constitution.
+    3. The Ministry of Justice shall maintain public guidance on reasonable penalty rates by industry sector.
+
+    ---
+
+    ## Article 7 — Reporting and Transparency
+
+    1. Commercial entities entering into contracts with liquidated damages clauses must ensure terms are clearly documented.
+    2. Penalty calculations must be provided to obligors in writing within 15 days of breach.
+    3. Disputes regarding calculation methodology may be submitted to commercial arbitration.
+
+    ---
+
+    ## Article 8 — Implementation
+
+    1. The Ministry of Justice is tasked with issuing regulations necessary for the practical enforcement of this Act.
+    2. This Act shall enter into force on **1 October 2025** and remain valid until amended or repealed by Parliament.
+
+    ---
+
+    **Adopted by the Parliament of the Republic of Lysmark**  
+    **Promulgated by the President of the Republic of Lysmark**
+  2025_88_GD.md: |
+    ---
+    **REPUBLIC OF LYSMARK**  
+    **MINISTRY OF GOVERNANCE AND DEMOCRATIC AFFAIRS**
+    ---
+
+    # ACT No. 2025/88-GD  
+    ## ORGANIZATIONAL VOTING AND QUORUM ACT
+
+    **Adopted:** 22 September 2025  
+    **Effective:** 1 November 2025  
+    **Legal Basis:** Constitution of Lysmark, Article 19 (Democratic Participation); Corporate Governance Directive 2020/15 of the Union of Northern States  
+    **Official Journal Reference:** OJ GD 2025/88, p. 312-328
+
+    ---
+
+    ### PREAMBLE
+
+    The Parliament of the Republic of Lysmark, affirming the democratic principles enshrined in the Constitution and recognizing the need for legitimate decision-making in corporate and organizational contexts, hereby establishes mandatory standards for voting procedures, quorum requirements, and approval thresholds.
+
+    ---
+
+    ## Article 1 — Purpose and Scope
+
+    1. This Act establishes minimum voting standards for all corporate bodies, cooperatives, associations, and organizations registered in the Republic of Lysmark.
+    2. It applies to shareholder meetings, member assemblies, board decisions, and other collective decision-making bodies.
+    3. Public elections remain governed by the Electoral Code.
+
+    ---
+
+    ## Article 2 — Turnout and Quorum Requirements
+
+    1. No vote shall be considered valid unless a minimum **turnout of 60% of eligible voters** is achieved.
+    2. Turnout is calculated as: (number of voters participating) ÷ (total eligible voters) × 100%.
+    3. Organizations may establish higher turnout requirements in their constitutional documents but may not set requirements below this statutory minimum.
+    4. Failed quorum requires adjournment and renotification to members.
+
+    ---
+
+    ## Article 3 — Approval Thresholds for General Resolutions
+
+    1. **Ordinary resolutions** require approval by a **simple majority** of votes cast.
+    2. Simple majority means: yes votes > 50% of total votes cast.
+    3. This threshold applies to:
+       - Routine operational decisions
+       - Annual budget approvals
+       - Appointment of officers (unless otherwise specified)
+       - Any matter not classified as requiring special approval
+
+    ---
+
+    ## Article 4 — Approval Thresholds for Constitutional Amendments
+
+    1. **Amendments to constitutional documents** require approval by **at least two-thirds (66.7%)** of votes cast.
+    2. Constitutional documents include:
+       - Articles of association
+       - Corporate bylaws
+       - Founding charters
+       - Any document establishing fundamental organizational rules
+    3. This heightened threshold ensures stability of foundational governance structures.
+
+    ---
+
+    ## Article 5 — Validation Procedure
+
+    Organizations must validate voting outcomes according to this two-stage test:
+
+    1. **Stage 1 - Turnout Test:** Verify that turnout ≥ 60% of eligible voters.
+    2. **Stage 2 - Approval Test:** 
+       - For general resolutions: yes votes > 50% of votes cast
+       - For amendments: yes votes ≥ 66.7% of votes cast
+    3. A proposal fails if either stage is not satisfied.
+
+    ---
+
+    ## Article 6 — Documentation and Reporting
+
+    1. Organizations must maintain records showing:
+       - Total eligible voters
+       - Actual turnout (number and percentage)
+       - Yes votes, no votes, and abstentions
+       - Calculation demonstrating compliance with thresholds
+    2. These records must be available for member inspection and regulatory audit.
+
+    ---
+
+    ## Article 7 — Enforcement
+
+    1. Decisions made in violation of this Act are voidable and may be challenged within 90 days.
+    2. The Ministry of Governance and Democratic Affairs shall investigate complaints of non-compliance.
+    3. Persistent violators may face suspension of registration or other administrative penalties.
+
+    ---
+
+    ## Article 8 — Appeals
+
+    1. Members may contest voting procedures or calculations within 30 days of the vote.
+    2. Appeals shall be submitted to the Directorate of Corporate Governance.
+    3. Final administrative decisions may be appealed to the Administrative Chamber of the Supreme Court of Lysmark.
+
+    ---
+
+    ## Article 9 — Implementation
+
+    1. The Ministry of Governance and Democratic Affairs is tasked with issuing regulations necessary for the practical enforcement of this Act.
+    2. This Act shall enter into force on **1 November 2025** and remain valid until amended or repealed by Parliament.
+
+    ---
+
+    **Adopted by the Parliament of the Republic of Lysmark**  
+    **Promulgated by the President of the Republic of Lysmark**
+  2025_94_FC.md: |
+    ---
+    **REPUBLIC OF LYSMARK**  
+    **MINISTRY OF FINANCE AND CREDIT MARKETS**
+    ---
+
+    # ACT No. 2025/94-FC  
+    ## STRUCTURED FINANCE AND CREDITOR PRIORITY ACT
+
+    **Adopted:** 5 October 2025  
+    **Effective:** 1 January 2026  
+    **Legal Basis:** Constitution of Lysmark, Article 31 (Property and Contract Rights); Financial Instruments Directive 2021/28 of the Union of Northern States  
+    **Official Journal Reference:** OJ FC 2025/94, p. 445-462
+
+    ---
+
+    ### PREAMBLE
+
+    The Parliament of the Republic of Lysmark, recognizing the importance of predictable priority rules in structured financing arrangements, and seeking to promote efficient capital markets while protecting creditor rights, hereby establishes mandatory waterfall distribution rules for multi-tier debt structures.
+
+    ---
+
+    ## Article 1 — Purpose and Scope
+
+    1. This Act governs the distribution of available cash or assets among multiple classes of creditors in structured financing arrangements.
+    2. It applies to:
+       - Syndicated loans with multiple tranches
+       - Secured debt with senior/junior structures
+       - Corporate insolvency distributions
+       - Project finance repayment waterfalls
+    3. This Act does not affect equal-ranking creditors, who share pro rata.
+
+    ---
+
+    ## Article 2 — Hierarchy of Claims
+
+    1. Claims shall be satisfied in the following strict order of priority:
+       - **Tier 1: Senior Debt** — highest priority
+       - **Tier 2: Junior (Subordinated) Debt** — intermediate priority
+       - **Tier 3: Equity** — residual claimants
+    2. No distribution to a lower tier may occur until the immediately higher tier is fully satisfied.
+    3. This hierarchy is mandatory and may not be contractually reversed.
+
+    ---
+
+    ## Article 3 — Senior Debt Priority
+
+    1. **Senior creditors** must receive 100% of their outstanding claims before any distribution to junior creditors or equity holders.
+    2. If available cash is insufficient to satisfy senior debt in full:
+       - All available cash goes entirely to senior creditors
+       - Junior creditors receive zero
+       - Equity holders receive zero
+    3. Senior debt includes principal, accrued interest, and any contractually agreed fees.
+
+    ---
+
+    ## Article 4 — Junior Debt Allocation
+
+    1. **Junior creditors** may only receive payment from cash remaining after full satisfaction of senior claims.
+    2. If remaining cash exceeds junior debt obligations:
+       - Junior creditors are paid in full
+       - Excess proceeds to equity
+    3. If remaining cash is less than junior debt obligations:
+       - Junior creditors receive the entire remaining balance
+       - Equity receives zero
+
+    ---
+
+    ## Article 5 — Residual Equity Distribution
+
+    1. **Equity holders** may only receive distributions from cash remaining after full payment of both senior and junior debt.
+    2. Equity distributions are discretionary and subject to organizational governance rules.
+    3. Residual amounts belong to equity holders proportionate to their ownership stakes.
+
+    ---
+
+    ## Article 6 — Calculation Methodology
+
+    Distribution shall be calculated using this sequential process:
+
+    1. **Step 1:** Identify total cash available for distribution
+    2. **Step 2:** Allocate to senior debt = MIN(cash available, senior debt outstanding)
+    3. **Step 3:** Calculate remaining cash = cash available - senior allocation
+    4. **Step 4:** Allocate to junior debt = MIN(remaining cash, junior debt outstanding)
+    5. **Step 5:** Calculate final remainder = remaining cash - junior allocation
+    6. **Step 6:** Allocate remainder to equity
+
+    ---
+
+    ## Article 7 — Enforcement and Penalties
+
+    1. Distributions made in violation of priority rules constitute breach of fiduciary duty.
+    2. Creditors improperly subordinated may void the distribution and seek full restitution.
+    3. Officers or directors authorizing non-compliant distributions face personal liability.
+
+    ---
+
+    ## Article 8 — Reporting Requirements
+
+    1. All structured finance arrangements must maintain records documenting:
+       - Outstanding amounts by creditor tier
+       - Cash available for distribution
+       - Actual allocations made
+       - Calculations demonstrating priority compliance
+    2. The Ministry of Finance and Credit Markets may audit compliance.
+
+    ---
+
+    ## Article 9 — Exceptions and Special Circumstances
+
+    1. Court-supervised insolvency proceedings may modify priority in accordance with Insolvency Act provisions.
+    2. Secured creditors retain their statutory rights to collateral realization.
+    3. This Act does not affect tax liens or other statutory priorities established by law.
+
+    ---
+
+    ## Article 10 — Implementation
+
+    1. The Ministry of Finance and Credit Markets is tasked with issuing regulations necessary for the practical enforcement of this Act.
+    2. This Act shall enter into force on **1 January 2026** and remain valid until amended or repealed by Parliament.
+
+    ---
+
+    **Adopted by the Parliament of the Republic of Lysmark**  
+    **Promulgated by the President of the Republic of Lysmark**
