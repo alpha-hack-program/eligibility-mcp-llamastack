@@ -11,11 +11,12 @@ metadata:
     app.kubernetes.io/name: {{ .Values.app }}
     app.kubernetes.io/part-of: {{ .Values.partOf }}
     app.openshift.io/runtime: python
-    # app.openshift.io/connects-to: >-
-    #   [{"apiVersion":"apps/v1","kind":"Deployment","name":"granite-3-3-8b-predictor"},{"apiVersion":"apps/v1","kind":"Deployment","name":"llama-3-1-8b-w4a16-predictor"},{"apiVersion":"apps/v1","kind":"Deployment","name":"eligibility-engine"}]
 spec:
   replicas: 1
   server:
+    userConfig:
+      # reference to the configmap that contains Llama stack configuration.
+      configMapName: {{ .Values.app }}-run
     containerSpec:
       env:
         {{- $appName := .Values.app }}
@@ -71,23 +72,6 @@ spec:
           memory: {{ .Values.lsdResources.requests.memory | default "1Gi" }}
         {{- end }}
       {{- end }}
-
-    podOverrides:
-      # Define volumes at the pod level
-      volumes:
-        - name: run-config
-          secret:
-            secretName: {{ .Values.app }}-run
-            items:
-              - key: run.yaml
-                path: run.yaml
-            defaultMode: 0644
-      # Mount the volume in the container
-      volumeMounts:
-        - name: run-config
-          mountPath: /opt/app-root/run.yaml
-          subPath: run.yaml
-          readOnly: true
     distribution:
       {{- if .Values.lsdName }}
       name: '{{ .Values.lsdName | default "rh-dev"}}'
